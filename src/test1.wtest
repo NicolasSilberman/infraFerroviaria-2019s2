@@ -28,6 +28,7 @@ describe "Formacion 1"{
 	d1.cargarCompartimientos(8)
 	//Formacion 1
 	f1.cargarVagon([p1,p2,c1,d1])
+	f1.organizar()
 	//locomotora1
 	l1.cargarPeso(3000)
 	l1.cargarPesoArrastre(20000)
@@ -69,6 +70,7 @@ describe "Formacion 1"{
 	assert.notThat(f1.carguero())
 	assert.equals(4220,f1.dispersionDePesos())
 	assert.equals(2,f1.cantidadBanios())
+	assert.notThat(f1.estaEquilibrado())
 	}
 	test "formacion1 mantenimiento"{
 	f1.hacerMantenimiento()
@@ -77,6 +79,8 @@ describe "Formacion 1"{
 	assert.notThat(f1.carguero())
 	assert.equals(3200,f1.dispersionDePesos())
 	assert.equals(2,f1.cantidadBanios())
+	assert.notThat(f1.estaEquilibrado())
+	assert.that(f1.estaOrganizado())
 	}
 	test "formacion con locomotora"{
 	f1.cargarVagon([l1])

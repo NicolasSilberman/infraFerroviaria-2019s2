@@ -5,6 +5,8 @@ class Formacion {
 	
 var tren = []
 
+
+
 method cargarVagon(vagon) {tren.addAll(vagon)}
 method eliminarVagon(vagon) {tren.remove(vagon)}
 
@@ -18,10 +20,14 @@ method hacerMantenimiento() {tren.forEach({t => t.mantenimiento()})}
 //los salados
 method estaEquilibrado() 
 {
-	var conPasajeros = tren.map({t => t.capacidadPasajeros() > 0})
-	return (conPasajeros.max() - conPasajeros.min()) < 20
+	const pasajeros = tren.filter({t => t.capacidadPasajeros() > 0 })
+	return pasajeros.max({p=>p.capacidadPasajeros()}).capacidadPasajeros() - pasajeros.min({p=>p.capacidadPasajeros()}).capacidadPasajeros() < 20
 }
-method organizada() {}
+method organizar() {tren.sortBy({a,b => a.capacidadPasajeros() > b.capacidadPasajeros()})}
+method estaOrganizado(){
+	return tren.max({t=>t.capacidadPasajeros()}) == tren.first()
+	and tren.min({t=>t.capacidadPasajeros()}) == tren.last()
+}
 
 //con locomotora
 method velocidadMaxima() {return tren.max({f => f.velocidad()}).velocidad()}
