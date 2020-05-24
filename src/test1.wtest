@@ -1,0 +1,113 @@
+import vagones.*
+import formaciones.*
+
+describe "Formacion 1"{
+	const f1 = new Formacion()
+	const p1 = new VagonPasajeros()
+	const p2 = new VagonPasajeros()
+	const c1 = new VagonCarga()
+	const d1 = new VagonDormitorio()
+	
+	fixture{
+	//primervagon	
+	p1.cargarLargo(10)
+	p1.cargarAncho(4)
+	p1.ordenVagon()
+	p1.tieneBanio()
+	//segundovagon
+	p2.cargarLargo(7)
+	p2.cargarAncho(2)
+	//tercer vagon
+	c1.cargaIdeal(6800)
+	c1.maderasSueltas(5)
+	//cuarto vagon
+	d1.cargarCamas(3)
+	d1.cargarCompartimientos(8)
+	//Formacion 1
+	f1.cargarVagon([p1,p2,c1,d1])		
+	}
+	
+	test "vagon1"{
+	assert.equals(100,p1.capacidadPasajeros())
+	assert.equals(10300,p1.pesoMaximo())
+	assert.equals(300, p1.cargaMaxima())
+	assert.equals(1,p1.banios())	
+	}
+	test "vagon2"{
+	assert.equals(41,p2.capacidadPasajeros())
+	assert.equals(6080,p2.pesoMaximo())
+	assert.equals(800, p2.cargaMaxima())
+	assert.equals(0,p2.banios())
+	}
+	test "vagon3"{
+	assert.equals(0,c1.capacidadPasajeros())
+	assert.equals(6300,c1.pesoMaximo())
+	assert.equals(4800, c1.cargaMaxima())
+	assert.equals(0,c1.banios())
+	}
+	test "vagon4"{
+	assert.equals(24,d1.capacidadPasajeros())
+	assert.equals(7120,d1.pesoMaximo())
+	assert.equals(1200, d1.cargaMaxima())
+	assert.equals(1,d1.banios())
+	}
+	test "formacion1"{
+	assert.equals(165,f1.cantidadPasajeros())
+	assert.equals(1,f1.vagonesPopulares())
+	assert.notThat(f1.carguero())
+	assert.equals(4220,f1.dispersionDePesos())
+	assert.equals(2,f1.cantidadBanios())
+	}
+	test "formacion1 mantenimiento"{
+	f1.hacerMantenimiento()
+	assert.equals(180,f1.cantidadPasajeros())
+	assert.equals(2,f1.vagonesPopulares())
+	assert.notThat(f1.carguero())
+	assert.equals(3200,f1.dispersionDePesos())
+	assert.equals(2,f1.cantidadBanios())
+	}	
+}
+
+describe "formacion 2"{
+	const f2 = new Formacion()
+	const c2 = new VagonCarga()
+	const d2 = new VagonDormitorio()
+	
+	fixture{
+	//primer vagon
+	c2.cargaIdeal(8000)
+	c2.maderasSueltas(1)
+	//segundo vagon
+	d2.cargarCamas(4)
+	d2.cargarCompartimientos(15)
+	//Formacion 1
+	f2.cargarVagon([c2,d2])			
+	}
+	test "vagon1"{
+	assert.equals(0,c2.capacidadPasajeros())
+	assert.equals(9100,c2.pesoMaximo())
+	assert.equals(7600, c2.cargaMaxima())
+	assert.equals(0,c2.banios())
+	}
+	test "vagon2"{
+	assert.equals(60,d2.capacidadPasajeros())
+	assert.equals(10000,d2.pesoMaximo())
+	assert.equals(1200, d2.cargaMaxima())
+	assert.equals(1,d2.banios())
+	}
+	test "formacion2"{
+	assert.equals(60,f2.cantidadPasajeros())
+	assert.equals(1,f2.vagonesPopulares())
+	assert.that(f2.carguero())
+	assert.equals(900,f2.dispersionDePesos())
+	assert.equals(1,f2.cantidadBanios())
+	}
+	test "formacion2 mantenimiento"{
+	f2.hacerMantenimiento()
+	assert.equals(60,f2.cantidadPasajeros())
+	assert.equals(1,f2.vagonesPopulares())
+	assert.that(f2.carguero())
+	assert.equals(500,f2.dispersionDePesos())
+	assert.equals(1,f2.cantidadBanios())
+	}
+}
