@@ -1,5 +1,6 @@
 import vagones.*
 import formaciones.*
+import locomotora.*
 
 describe "Formacion 1"{
 	const f1 = new Formacion()
@@ -7,6 +8,8 @@ describe "Formacion 1"{
 	const p2 = new VagonPasajeros()
 	const c1 = new VagonCarga()
 	const d1 = new VagonDormitorio()
+	const l1 = new Locomotora()
+	const l2 = new Locomotora()
 	
 	fixture{
 	//primervagon	
@@ -24,7 +27,16 @@ describe "Formacion 1"{
 	d1.cargarCamas(3)
 	d1.cargarCompartimientos(8)
 	//Formacion 1
-	f1.cargarVagon([p1,p2,c1,d1])		
+	f1.cargarVagon([p1,p2,c1,d1])
+	//locomotora1
+	l1.cargarPeso(3000)
+	l1.cargarPesoArrastre(20000)
+	l1.cargarVelocidad(150)
+	//locomotora2
+	l2.cargarPeso(5000)
+	l2.cargarPesoArrastre(22000)
+	l2.cargarVelocidad(150)
+			
 	}
 	
 	test "vagon1"{
@@ -65,8 +77,21 @@ describe "Formacion 1"{
 	assert.notThat(f1.carguero())
 	assert.equals(3200,f1.dispersionDePesos())
 	assert.equals(2,f1.cantidadBanios())
+	}
+	test "formacion con locomotora"{
+	f1.cargarVagon([l1])
+	assert.that(f1.eficiencia())
+	assert.notThat(f1.seMueve())
+	assert.equals(12800,f1.cuantosKlFaltan())	
+	}
+	test "formacion con locomotora2"{
+	f1.cargarVagon([l1,l2])
+	assert.notThat(f1.eficiencia())
+	assert.that(f1.seMueve())
+	assert.equals(0,f1.cuantosKlFaltan())	
 	}	
 }
+
 
 describe "formacion 2"{
 	const f2 = new Formacion()
@@ -110,4 +135,6 @@ describe "formacion 2"{
 	assert.equals(500,f2.dispersionDePesos())
 	assert.equals(1,f2.cantidadBanios())
 	}
+	
 }
+

@@ -24,6 +24,10 @@ method pesoMaximo() {return 2000 + self.capacidadPasajeros()*80 + self.cargaMaxi
 method banios(){( if(banio){return 1} else{return 0})}
 
 method mantenimiento() {ordenado = true}
+//locomotora
+method velocidad() {return 0}
+method esEficiente() {return true}
+method pesoArrastre() {return 0}
 }
 
 
@@ -45,6 +49,10 @@ method pesoMaximo() {return 1500 + self.cargaMaxima()}
 method banios() {return 0}
 
 method mantenimiento() {maderas = 0.max(maderas - 2) }
+//locomotora
+method velocidad() {return 0}
+method esEficiente() {return true}
+method pesoArrastre() {return 0}
 
 }
 
@@ -65,6 +73,10 @@ method pesoMaximo() {return 4000 + self.capacidadPasajeros()*80 + self.cargaMaxi
 method banios() {return 1}
 
 method mantenimiento() {}
+//locomotora
+method velocidad() {return 0}
+method esEficiente() {return true}
+method pesoArrastre() {return 0}
 
 }
 
